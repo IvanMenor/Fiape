@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Confirmar Crédito</title>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+
+    <div class="card shadow mx-auto" style="max-width:500px">
+
+        <div class="card-body">
+
+            <h2 class="text-center mb-4">
+                Confirmar Crédito
+            </h2>
+
+            <form th:action="@{/credito/confirmar}" method="post">
+
+                <input type="hidden"
+                       name="creditoId"
+                       value="1">
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        PIN de Seguridad
+                    </label>
+
+                    <input
+                            type="password"
+                            maxlength="4"
+                            name="pin"
+                            class="form-control"
+                            required>
+
+                </div>
+
+                <div class="alert alert-danger"
+                     th:if="${error}"
+                     th:text="${error}">
+                </div>
+
+                <button class="btn btn-success w-100">
+                    Confirmar
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

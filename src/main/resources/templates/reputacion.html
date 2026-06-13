@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Reputación</title>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container py-5">
+
+    <div class="card shadow">
+
+        <div class="card-body">
+
+            <h2 class="mb-4">
+                Mi Reputación
+            </h2>
+
+            <div class="progress" style="height:30px">
+
+                <div class="progress-bar bg-success"
+                     role="progressbar"
+                     th:style="'width:' + ${progreso} + '%'">
+
+                    <span th:text="${progreso} + '%'"></span>
+
+                </div>
+
+            </div>
+
+            <div class="mt-4">
+
+                <p>
+                    Progreso para subir de nivel
+                </p>
+
+                <p>
+                    Meta: 3 pagos puntuales
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
