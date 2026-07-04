@@ -1,28 +1,28 @@
 package com.example.demo.controller;
 
 import com.example.demo.service.ReputacionService;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api/usuario")
+@CrossOrigin(origins = "*")
 public class ReputacionController {
 
     @Autowired
     private ReputacionService reputacionService;
 
-    @GetMapping("/reputacion")
-    public String reputacion(Model model) {
-
-        Long usuarioId = 1L;
-
-        int progreso =
-                reputacionService.obtenerProgreso(usuarioId);
-
-        model.addAttribute("progreso", progreso);
-
-        return "reputacion";
+    @GetMapping("/{id}/reputacion")
+    public ResponseEntity<?> getReputacion(@PathVariable Long id) {
+        int progreso = reputacionService.obtenerProgreso(id);
+        
+        Map<String, Object> response = new HashMap<>();
+        response.put("progreso", progreso);
+        
+        return ResponseEntity.ok(response);
     }
 }

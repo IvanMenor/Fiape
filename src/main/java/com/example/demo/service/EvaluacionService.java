@@ -19,10 +19,13 @@ public class EvaluacionService {
     @Autowired
     private EvaluacionRepository evaluacionRepository;
 
-    public EvaluacionCrediticia evaluar(String dni) {
+    @Autowired
+    private com.example.demo.repository.UsuarioRepository usuarioRepository;
+
+    public EvaluacionCrediticia evaluar(String nombres, String apellidos, String correo, String dni, String telefono) {
 
         ResultadoIA resultadoIA =
-                iaService.evaluarCliente(dni);
+                iaService.evaluarCliente(nombres + " " + apellidos, correo, dni, telefono);
 
         EvaluacionCrediticia evaluacion =
                 new EvaluacionCrediticia();
@@ -34,6 +37,13 @@ public class EvaluacionService {
         evaluacion.setExplicacionIA(resultadoIA.getExplicacion());
         evaluacion.setRecomendacionIA(resultadoIA.getRecomendacion());
         evaluacion.setFechaEvaluacion(LocalDateTime.now());
+
+        // Si el usuario ya está registrado, le actualizamos su nivel asignado por la IA
+        usuarioRepository.findByDni(dni).ifPresent(usuario -> {
+            usuario.setNivelActual(resultadoIA.getNivel());
+            usuario.setHistorialCrediticio(resultadoIA.getNivel() > 1);
+            usuarioRepository.save(usuario);
+        });
 
         return evaluacionRepository.save(evaluacion);
     }

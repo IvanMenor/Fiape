@@ -8,4 +8,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     Optional<Usuario> findByDni(String dni);
 
+    Optional<Usuario> findByCorreo(String correo);
+
 }
